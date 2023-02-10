@@ -2,6 +2,7 @@ on: [push]
 
 jobs:
   build:
+    runs-on: ubuntu-latest
     steps:
       - name: Auto Increment Semver Action
         uses: MCKanpolat/auto-semver-action@1.0.5
