@@ -1,15 +1,19 @@
-on: [push]
+name: Bump version
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
-      - name: Auto Increment Semver Action
-        uses: MCKanpolat/auto-semver-action@1.0.5
-        id: versioning
+      - uses: actions/checkout@v3
         with:
-          releaseType: patch
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: "0"
 
-      - name: Next Release Number
-        run: echo ${{ steps.versioning.outputs.version }}
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.55.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
