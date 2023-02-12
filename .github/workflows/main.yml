@@ -16,6 +16,8 @@ jobs:
 
       ## this is where we will build it using ${{ steps.version.outputs.version_tag}}
       ## so we only create the tag if the build is successful
+    outputs:
+      version_tag: ${{ steps.version.outputs.version_tag }}
 
   deploy:
     needs: [build]
@@ -25,4 +27,4 @@ jobs:
       - name: Create tag
         uses: rickstaa/action-create-tag@v1
         with:
-          tag: "${{ needs.build.version.outputs.version_tag}}"
+          tag: "${{ needs.build.outputs.version_tag}}"
