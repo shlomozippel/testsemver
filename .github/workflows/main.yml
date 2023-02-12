@@ -1,7 +1,7 @@
 on: [push]
 
 jobs:
-  tag:
+  build:
     runs-on: ubuntu-latest
     name: Bump version and create tag
     steps:
@@ -14,6 +14,14 @@ jobs:
         id: version
         uses: paulhatch/semantic-version@v5.0.2
 
+      ## this is where we will build it using ${{ steps.version.outputs.version_tag}}
+      ## so we only create the tag if the build is successful
+
+  deploy:
+    needs: [build]
+    if: github.ref_name == 'main'
+    runs-on: ubuntu-latest
+    steps:
       - name: Create tag
         uses: rickstaa/action-create-tag@v1
         with:
