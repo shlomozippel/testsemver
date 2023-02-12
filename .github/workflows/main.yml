@@ -16,7 +16,7 @@ jobs:
 
       - name: info
         run: |
-          echo Formatted version: ${{ steps.version.outputs.formatted_version }}
+          echo Version: ${{ steps.version.outputs.version }}
           echo Increment: ${{ steps.version.outputs.increment }}
           echo Version tag: ${{ steps.version.outputs.version_tag }}
 
