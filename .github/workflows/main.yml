@@ -15,6 +15,7 @@ jobs:
         uses: paulhatch/semantic-version@v5.0.2
         with:
           use_branches: true
+          version_format: "${major}.${minor}.${patch}-prerelease${increment}"
 
       - name: info
         run: |
