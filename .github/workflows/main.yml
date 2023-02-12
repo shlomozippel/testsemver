@@ -13,6 +13,14 @@ jobs:
       - name: Get new version
         id: version
         uses: paulhatch/semantic-version@v5.0.2
+        with:
+          version_format: "${major}.${minor}.${patch}-prerelease${increment}"
+
+      - name: info
+        run: |
+          echo Version: ${{ steps.version.outputs.version }}
+          echo Increment: ${{ steps.version.outputs.increment }}
+          echo Version tag: ${{ steps.version.outputs.version_tag }}
 
       ## this is where we will build it using ${{ steps.version.outputs.version_tag}}
       ## so we only create the tag if the build is successful
