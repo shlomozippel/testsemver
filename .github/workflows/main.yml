@@ -1,18 +1,20 @@
 on: [push]
 
 jobs:
-  build:
+  tag:
     runs-on: ubuntu-latest
+    name: Bump version and create tag
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: "0"
 
-      - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.55.0
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          WITH_V: true
-          DEFAULT_BUMP: patch
-          DEFAULT_BRANCH: main
+      - name: Get new version
+        id: version
+        uses: paulhatch/semantic-version@v5.0.2
+
+      - name: Create tag
+        uses: rickstaa/action-create-tag@v1
+        with:
+          tag: "${{ steps.version.outputs.version_tag}}"
